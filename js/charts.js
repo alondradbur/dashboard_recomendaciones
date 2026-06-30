@@ -302,16 +302,16 @@ function renderTipoEstatus() {
 
   const contenedor = canvasOriginal.parentElement;
 
-  contenedor.style.minHeight = "560px";
+  contenedor.style.minHeight = "470px";
 
   contenedor.innerHTML = `
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; height:420px;">
-      <div style="position:relative; height:380px;">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; height:340px;">
+      <div style="position:relative; height:300px;">
         <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2024</div>
         <canvas id="ch-tipo-estatus-2024"></canvas>
       </div>
 
-      <div style="position:relative; height:380px;">
+      <div style="position:relative; height:300px;">
         <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2025</div>
         <canvas id="ch-tipo-estatus-2025"></canvas>
       </div>
