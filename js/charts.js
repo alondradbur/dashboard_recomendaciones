@@ -297,28 +297,30 @@ function renderTipoEstatus() {
   destruirGrafica("tipoEstatus2024");
   destruirGrafica("tipoEstatus2025");
 
-  const canvasOriginal = $("#panelTipoRecomendacion");
-  if (!canvasOriginal) return;
+  const panel = $("#panelTipoRecomendacion");
+  if (!panel) return;
 
-  const contenedor = canvasOriginal.parentElement;
-
-  contenedor.style.minHeight = "auto";
-
-  contenedor.innerHTML = `
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; height:340px;">
-      <div style="position:relative; height:300px;">
+  panel.innerHTML = `
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:30px;
+      align-items:center;
+      margin-top:10px;
+    ">
+      <div style="position:relative; height:320px;">
         <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2024</div>
         <canvas id="ch-tipo-estatus-2024"></canvas>
       </div>
 
-      <div style="position:relative; height:300px;">
+      <div style="position:relative; height:320px;">
         <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2025</div>
         <canvas id="ch-tipo-estatus-2025"></canvas>
       </div>
     </div>
 
     <div id="leyendaTipoRecomendacion" style="
-      margin-top:10px;
+      margin-top:18px;
       padding:14px 18px;
       border:1px solid #ddd8cc;
       border-radius:12px;
@@ -346,6 +348,89 @@ function renderTipoEstatus() {
     COLORES.NA,
     COLORES.P
   ];
+
+  function datosPorAnio(anio) {
+    const registros = DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio);
+    return estatus.map(e => registros.filter(r => r.estatus === e).length);
+  }
+
+  function crearGrafica(anio, canvasId, keyGrafica) {
+    const datos = datosPorAnio(anio);
+
+    graficas[keyGrafica] = new Chart($(canvasId), {
+      type: "doughnut",
+      data: {
+        labels: estatus.map(e => etiquetasEstatus[e]),
+        datasets: [{
+          data: datos,
+          backgroundColor: coloresEstatus,
+          borderColor: "#ffffff",
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "42%",
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              title: context => context[0].label,
+              label: context => `Total: ${context.raw}`
+            }
+          },
+          datalabels: {
+            color: "#ffffff",
+            font: {
+              weight: "bold",
+              size: 14
+            },
+            formatter: function(value, context) {
+              if (!value) return "";
+              return `${estatus[context.dataIndex]}\n${value}`;
+            }
+          }
+        }
+      }
+    });
+  }
+
+  crearGrafica(2024, "#ch-tipo-estatus-2024", "tipoEstatus2024");
+  crearGrafica(2025, "#ch-tipo-estatus-2025", "tipoEstatus2025");
+
+  const tipos = [
+    ...new Set(DATOS_FILTRADOS.map(r => r.tipo_recomendacion || "Sin tipo"))
+  ].slice(0, 12);
+
+  const coloresLeyenda = [
+    "#1B7F4A",
+    "#C79A3B",
+    "#B44A3A",
+    "#496C9E",
+    "#7A4FA3",
+    "#25A8B5",
+    "#E1782D",
+    "#8A8A8A",
+    "#4E8D63",
+    "#A95D5D",
+    "#2E6BA6",
+    "#5B7F36"
+  ];
+
+  $("#leyendaTipoRecomendacion").innerHTML = tipos.map((t, i) => `
+    <span style="display:flex; align-items:center; gap:8px; min-width:280px;">
+      <span style="
+        width:12px;
+        height:12px;
+        border-radius:50%;
+        background:${coloresLeyenda[i % coloresLeyenda.length]};
+        display:inline-block;
+      "></span>
+      <span>${t}</span>
+    </span>
+  `).join("");
+}
 
   function datosPorAnio(anio) {
     const registros = DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio);
