@@ -297,7 +297,7 @@ function renderTipoEstatus() {
   destruirGrafica("tipoEstatus2024");
   destruirGrafica("tipoEstatus2025");
 
-  const canvasOriginal = $("#ch-tipo-estatus");
+  const canvasOriginal = $("#panelTipoRecomendacion");
   if (!canvasOriginal) return;
 
   const contenedor = canvasOriginal.parentElement;
