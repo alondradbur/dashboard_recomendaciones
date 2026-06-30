@@ -68,7 +68,7 @@ function renderComparativoAnios() {
   destruirGrafica("comparativoAnios");
   const datasets = [2024, 2025].filter(anio => DATOS_FILTRADOS.some(r => r.ejercicio_fiscal === anio)).map(anio => ({
     label: String(anio),
-    backgroundColor: anio === 2024 ? "#1a4731" : "#2e7d4f",
+    backgroundColor: anio === 2024 ? "#DADAF2" : "#020296",
     data: conteoPorEstatus(DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio))
   }));
   graficas.comparativoAnios = new Chart($("#ch-comparativo-anios"), {
