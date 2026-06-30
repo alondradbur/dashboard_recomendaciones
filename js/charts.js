@@ -318,7 +318,7 @@ function renderTipoEstatus() {
     </div>
 
     <div id="leyendaTipoRecomendacion" style="
-      margin-top:18px;
+      margin-top:42px;
       padding:14px 18px;
       border:1px solid #ddd8cc;
       border-radius:12px;
@@ -415,12 +415,40 @@ function renderTipoEstatus() {
     ...new Set(DATOS_FILTRADOS.map(r => r.tipo_recomendacion || "Sin tipo"))
   ].slice(0, 12);
 
-  $("#leyendaTipoRecomendacion").innerHTML = tipos.map(t => `
-    <span style="display:flex; align-items:center; gap:7px;">
-      <span style="width:10px; height:10px; border-radius:50%; background:#00402f; display:inline-block;"></span>
-      ${t}
+  const coloresLeyenda = [
+  "#1B7F4A",
+  "#C79A3B",
+  "#B44A3A",
+  "#496C9E",
+  "#7A4FA3",
+  "#25A8B5",
+  "#E1782D",
+  "#8A8A8A",
+  "#4E8D63",
+  "#A95D5D",
+  "#2E6BA6",
+  "#5B7F36"
+];
+
+$("#leyendaTipoRecomendacion").innerHTML =
+  tipos.map((t, i) => `
+    <span style="
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:280px;
+    ">
+      <span style="
+        width:12px;
+        height:12px;
+        border-radius:50%;
+        background:${coloresLeyenda[i % coloresLeyenda.length]};
+        display:inline-block;
+      "></span>
+
+      <span>${t}</span>
     </span>
-  `).join("");
+`).join("");
 }
 /* ========================= */
 /* ESCALAMIENTO              */
