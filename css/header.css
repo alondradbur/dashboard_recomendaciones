@@ -67,7 +67,7 @@
 }
 
 .header-title h1 {
-  margin: 0;
+  margin: 8px 0;
 
   color: var(--primary-2);
   font-size: 28px;
