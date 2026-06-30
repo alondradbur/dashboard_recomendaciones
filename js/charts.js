@@ -41,7 +41,7 @@ const OPCIONES_COMUNES = {
 };
 
 function conteoPorEstatus(datos) {
-  return ["A", "PA", "NA", "P"].map(e => datos.filter(r => r.estatus === e).length);
+  return ["Atendida", "Parcialmente Atendida", "No Atendida", "Pendiente de Atender"].map(e => datos.filter(r => r.estatus === e).length);
 }
 
 function renderGraficas() {
