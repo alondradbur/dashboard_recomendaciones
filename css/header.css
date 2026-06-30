@@ -9,7 +9,8 @@
 
   padding: 14px 22px;
 
-  background: #fff;
+  background: #ffffff;
+
   border-top: 2px solid var(--primary);
   border-bottom: 2px solid var(--primary);
 }
@@ -23,8 +24,9 @@
   width: 76px;
   height: 76px;
 
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 50%;
+
   border: 2px solid var(--primary);
 }
 
@@ -49,8 +51,8 @@
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 
   text-align: center;
 }
@@ -60,8 +62,8 @@
 
   color: var(--primary-2);
   font-size: 12px;
-  letter-spacing: 2px;
   font-weight: 700;
+  letter-spacing: 2px;
 }
 
 .header-title h1 {
@@ -70,14 +72,17 @@
   color: var(--primary-2);
   font-size: 28px;
   line-height: 1.15;
+  font-weight: 700;
 }
 
 .header-title span {
+  display: block;
   margin-top: 10px;
 
   color: var(--secondary);
   font-size: 14px;
 }
+
 
 /* =========================================================
    TARJETAS SUPERIORES
@@ -94,9 +99,11 @@
 
   width: 120px;
   height: 76px;
+
   padding: 8px;
 
   background: #f0f9f4;
+
   border: 1px solid var(--accent);
   border-radius: 5px;
 
@@ -124,12 +131,14 @@
 
   width: 120px;
   height: 76px;
+
   padding: 8px;
 
   border-radius: 5px;
 
   background: var(--primary);
-  color: #fff;
+  color: #ffffff;
+
   font-weight: 700;
 
   box-shadow: var(--shadow);
@@ -148,5 +157,5 @@
   border-radius: 999px;
 
   background: var(--warn);
-  color: #fff;
+  color: #ffffff;
 }
