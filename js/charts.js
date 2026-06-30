@@ -302,7 +302,7 @@ function renderTipoEstatus() {
 
   const contenedor = canvasOriginal.parentElement;
 
-  contenedor.style.minHeight = "470px";
+  contenedor.style.minHeight = "auto";
 
   contenedor.innerHTML = `
     <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; height:340px;">
@@ -318,7 +318,7 @@ function renderTipoEstatus() {
     </div>
 
     <div id="leyendaTipoRecomendacion" style="
-      margin-top:42px;
+      margin-top:10px;
       padding:14px 18px;
       border:1px solid #ddd8cc;
       border-radius:12px;
