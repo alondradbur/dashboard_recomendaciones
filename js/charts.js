@@ -294,69 +294,134 @@ function renderAccionesProgreso() {
 
 function renderTipoEstatus() {
   destruirGrafica("tipoEstatus");
+  destruirGrafica("tipoEstatus2024");
+  destruirGrafica("tipoEstatus2025");
+
+  const canvasOriginal = $("#ch-tipo-estatus");
+  if (!canvasOriginal) return;
+
+  const contenedor = canvasOriginal.parentElement;
+
+  contenedor.style.minHeight = "560px";
+
+  contenedor.innerHTML = `
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; align-items:center; height:420px;">
+      <div style="position:relative; height:380px;">
+        <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2024</div>
+        <canvas id="ch-tipo-estatus-2024"></canvas>
+      </div>
+
+      <div style="position:relative; height:380px;">
+        <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2025</div>
+        <canvas id="ch-tipo-estatus-2025"></canvas>
+      </div>
+    </div>
+
+    <div id="leyendaTipoRecomendacion" style="
+      margin-top:18px;
+      padding:14px 18px;
+      border:1px solid #ddd8cc;
+      border-radius:12px;
+      background:#fff;
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px 22px;
+      font-size:12px;
+      color:#1f2933;
+    "></div>
+  `;
+
+  const estatus = ["A", "PA", "NA", "P"];
+
+  const etiquetasEstatus = {
+    A: "A — Atendida",
+    PA: "PA — Parc. Atendida",
+    NA: "NA — No Atendida",
+    P: "P — Pendiente"
+  };
+
+  const coloresEstatus = [
+    COLORES.A,
+    COLORES.PA,
+    COLORES.NA,
+    COLORES.P
+  ];
+
+  function datosPorAnio(anio) {
+    const registros = DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio);
+
+    return estatus.map(e =>
+      registros.filter(r => r.estatus === e).length
+    );
+  }
+
+  function crearGrafica(anio, canvasId, keyGrafica) {
+    const datos = datosPorAnio(anio);
+
+    graficas[keyGrafica] = new Chart($(canvasId), {
+      type: "doughnut",
+      data: {
+        labels: estatus.map(e => etiquetasEstatus[e]),
+        datasets: [
+          {
+            data: datos,
+            backgroundColor: coloresEstatus,
+            borderColor: "#ffffff",
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "42%",
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              title: function(context) {
+                return context[0].label;
+              },
+              label: function(context) {
+                return `Total: ${context.raw}`;
+              }
+            }
+          },
+          datalabels: {
+            color: "#ffffff",
+            font: {
+              weight: "bold",
+              size: 14
+            },
+            formatter: function(value, context) {
+              if (!value) return "";
+
+              const etiqueta = estatus[context.dataIndex];
+
+              return `${etiqueta}\n${value}`;
+            }
+          }
+        }
+      }
+    });
+  }
+
+  crearGrafica(2024, "#ch-tipo-estatus-2024", "tipoEstatus2024");
+  crearGrafica(2025, "#ch-tipo-estatus-2025", "tipoEstatus2025");
 
   const tipos = [
     ...new Set(DATOS_FILTRADOS.map(r => r.tipo_recomendacion || "Sin tipo"))
-  ].slice(0, 8);
+  ].slice(0, 12);
 
-  graficas.tipoEstatus = new Chart($("#ch-tipo-estatus"), {
-    type: "bar",
-    data: {
-      labels: tipos.map(t => {
-  const texto = String(t);
-  const palabras = texto.split(" ");
-  if (palabras.length <= 2) return texto;
-
-  return [
-    palabras.slice(0, Math.ceil(palabras.length / 2)).join(" "),
-    palabras.slice(Math.ceil(palabras.length / 2)).join(" ")
-  ];
-}),
-      datasets: ["A", "PA", "NA", "P"].map(e => ({
-        label: e,
-        backgroundColor: COLORES[e],
-        data: tipos.map(t =>
-          DATOS_FILTRADOS.filter(r =>
-            (r.tipo_recomendacion || "Sin tipo") === t && r.estatus === e
-          ).length
-        )
-      }))
-    },
-    plugins: {
-  ...OPCIONES_COMUNES.plugins,
-
-  tooltip: {
-    callbacks: {
-      title: function(context) {
-        const index = context[0].dataIndex;
-        return tipos[index];
-      }
-    }
-  },
-
-  datalabels: {
-        ...OPCIONES_COMUNES.plugins,
-        datalabels: {
-          anchor: "end",
-          align: "top",
-          formatter: v => v || "",
-          font: {
-            weight: "bold"
-          }
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            precision: 0
-          }
-        }
-      }
-    }
-  });
+  $("#leyendaTipoRecomendacion").innerHTML = tipos.map(t => `
+    <span style="display:flex; align-items:center; gap:7px;">
+      <span style="width:10px; height:10px; border-radius:50%; background:#00402f; display:inline-block;"></span>
+      ${t}
+    </span>
+  `).join("");
 }
-
 /* ========================= */
 /* ESCALAMIENTO              */
 /* ========================= */
