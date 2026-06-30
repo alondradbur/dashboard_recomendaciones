@@ -302,7 +302,16 @@ function renderTipoEstatus() {
   graficas.tipoEstatus = new Chart($("#ch-tipo-estatus"), {
     type: "bar",
     data: {
-      labels: tipos.map(t => truncar(t, 15)),
+      labels: tipos.map(t => {
+  const texto = String(t);
+  const palabras = texto.split(" ");
+  if (palabras.length <= 2) return texto;
+
+  return [
+    palabras.slice(0, Math.ceil(palabras.length / 2)).join(" "),
+    palabras.slice(Math.ceil(palabras.length / 2)).join(" ")
+  ];
+}),
       datasets: ["A", "PA", "NA", "P"].map(e => ({
         label: e,
         backgroundColor: COLORES[e],
@@ -313,9 +322,19 @@ function renderTipoEstatus() {
         )
       }))
     },
-    options: {
-      ...OPCIONES_COMUNES,
-      plugins: {
+    plugins: {
+  ...OPCIONES_COMUNES.plugins,
+
+  tooltip: {
+    callbacks: {
+      title: function(context) {
+        const index = context[0].dataIndex;
+        return tipos[index];
+      }
+    }
+  },
+
+  datalabels: {
         ...OPCIONES_COMUNES.plugins,
         datalabels: {
           anchor: "end",
