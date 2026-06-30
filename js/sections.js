@@ -67,6 +67,9 @@ function renderSeccionGobierno() {
 function renderContenidoDinamico() {
   renderSeccionContinuidad();
 
+  // Módulo Riesgos y Alertas oculto temporalmente
+  // renderSeccionRiesgos();
+
   // Módulo Gobierno Corporativo oculto temporalmente
   // renderSeccionGobierno();
 }
