@@ -1,7 +1,7 @@
 {
   "name": "Sistema de Seguimiento de Recomendaciones",
   "short_name": "Recomendaciones UEC",
-  "description": "Unidad de Evaluación y Control · Comisión de Vigilancia de la ASEBCS",
+  "description": "Recomendaciones emitidas por la CVASEBCS, derivadas de la Evaluación del Desempeño",
 
   "start_url": "/dashboard_recomendaciones/",
   "scope": "/dashboard_recomendaciones/",
