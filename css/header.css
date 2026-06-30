@@ -46,10 +46,18 @@
 
 .header-title {
   flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
   text-align: center;
 }
 
 .header-title p {
+  margin: 0 0 6px;
+
   color: var(--primary-2);
   font-size: 12px;
   letter-spacing: 2px;
@@ -57,18 +65,19 @@
 }
 
 .header-title h1 {
+  margin: 0;
+
   color: var(--primary-2);
   font-size: 28px;
   line-height: 1.15;
-
-  margin-bottom: 12px;
 }
 
 .header-title span {
+  margin-top: 10px;
+
   color: var(--secondary);
   font-size: 14px;
 }
-
 
 /* =========================================================
    TARJETAS SUPERIORES
