@@ -73,7 +73,12 @@ function renderComparativoAnios() {
   }));
   graficas.comparativoAnios = new Chart($("#ch-comparativo-anios"), {
     type: "bar",
-    data: { labels: ["A", "PA", "NA", "P"], datasets },
+    data: { labels: [
+  "Atendida",
+  ["Parcialmente", "Atendida"],
+  ["No", "Atendida"],
+  ["Pendiente de", "Atender"]
+], datasets },
     options: { ...OPCIONES_COMUNES, plugins: { ...OPCIONES_COMUNES.plugins, datalabels: { anchor: "end", align: "top", color: "#1f2933", font: { weight: "bold" } } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 } } } }
   });
 }
