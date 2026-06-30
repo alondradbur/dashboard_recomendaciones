@@ -294,60 +294,52 @@ function renderAccionesProgreso() {
 
 function renderTipoEstatus() {
   destruirGrafica("tipoEstatus");
-  destruirGrafica("tipoEstatus2024");
-  destruirGrafica("tipoEstatus2025");
 
-  const panel = $("#panelTipoRecomendacion");
-  if (!panel) return;
+  const tipos = [
+    ...new Set(DATOS_FILTRADOS.map(r => r.tipo_recomendacion || "Sin tipo"))
+  ].slice(0, 8);
 
-  panel.innerHTML = `
-    <div style="
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:30px;
-      align-items:center;
-      margin-top:10px;
-    ">
-      <div style="position:relative; height:320px;">
-        <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2024</div>
-        <canvas id="ch-tipo-estatus-2024"></canvas>
-      </div>
-
-      <div style="position:relative; height:320px;">
-        <div style="text-align:center; font-weight:700; color:#00402f; font-size:22px; margin-bottom:8px;">2025</div>
-        <canvas id="ch-tipo-estatus-2025"></canvas>
-      </div>
-    </div>
-
-    <div id="leyendaTipoRecomendacion" style="
-      margin-top:18px;
-      padding:14px 18px;
-      border:1px solid #ddd8cc;
-      border-radius:12px;
-      background:#fff;
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px 22px;
-      font-size:12px;
-      color:#1f2933;
-    "></div>
-  `;
-
-  const estatus = ["A", "PA", "NA", "P"];
-
-  const etiquetasEstatus = {
-    A: "A — Atendida",
-    PA: "PA — Parc. Atendida",
-    NA: "NA — No Atendida",
-    P: "P — Pendiente"
-  };
-
-  const coloresEstatus = [
-    COLORES.A,
-    COLORES.PA,
-    COLORES.NA,
-    COLORES.P
-  ];
+  graficas.tipoEstatus = new Chart($("#ch-tipo-estatus"), {
+    type: "bar",
+    data: {
+      labels: tipos.map(t => truncar(t, 18)),
+      datasets: ["A", "PA", "NA", "P"].map(e => ({
+        label: e,
+        backgroundColor: COLORES[e],
+        data: tipos.map(t =>
+          DATOS_FILTRADOS.filter(r =>
+            (r.tipo_recomendacion || "Sin tipo") === t && r.estatus === e
+          ).length
+        )
+      }))
+    },
+    options: {
+      ...OPCIONES_COMUNES,
+      plugins: {
+        ...OPCIONES_COMUNES.plugins,
+        tooltip: {
+          callbacks: {
+            title: function(context) {
+              return tipos[context[0].dataIndex];
+            }
+          }
+        },
+        datalabels: {
+          anchor: "end",
+          align: "top",
+          formatter: v => v || "",
+          font: { weight: "bold" }
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: { precision: 0 }
+        }
+      }
+    }
+  });
+}
 
   function datosPorAnio(anio) {
     const registros = DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio);
