@@ -30,10 +30,6 @@
 <meta name="twitter:description" content="Recomendaciones emitidas por la CVASEBCS, derivadas de la Evaluación del Desempeño">
 <meta name="twitter:image" content="https://alondradbur.github.io/dashboard_recomendaciones/assets/og-image.png">
 
-<!-- Favicon -->
-<link rel="icon" type="image/png" href="assets/favicon.png">
-<link rel="shortcut icon" href="assets/favicon.png">
-
   <!-- =========================================================
        CSS DEL DASHBOARD
   ========================================================= -->
@@ -153,20 +149,17 @@
       <h2>✅ Efectividad y Cumplimiento</h2>
       <div class="chart-card"><h3>Tasa de Atención por Etapa</h3><div class="chart-wrap"><canvas id="ch-atencion-etapa"></canvas></div></div>
       <div class="chart-card"><h3>Progreso de Acciones por Recomendación</h3><div class="chart-wrap tall"><canvas id="ch-acciones-progreso"></canvas></div></div>
-      <div class="chart-card"><h3>Recomendaciones por Tipo de Recomendación y Estatus</h3><div class="chart-wrap"><div id="panelTipoRecomendacion"></div></div></div>
+      <div class="chart-card"><h3>Recomendaciones por Tipo de Recomendación y Estatus</h3><div class="chart-wrap tipo-recomendacion-panel"><div id="panelTipoRecomendacion"></div></div></div>
     </section>
 
     <!-- =========================================================
-         SECCIÓN 3
+         SECCIÓN 3 - RIESGOS Y ALERTAS OCULTO TEMPORALMENTE
     ========================================================= -->
     <!--
-<!--
-<section class="seccion" id="sec-riesgos">
-
-  TODO EL CONTENIDO DE RIESGOS Y ALERTAS
-
-</section>
--->
+    <section class="seccion" id="sec-riesgos">
+      <h2>⚠️ Riesgos y Alertas</h2>
+    </section>
+    -->
 
     <!-- =========================================================
          SECCIÓN 4
@@ -236,7 +229,7 @@
   <script src="js/api.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/kpis.js"></script>
-  <script src="js/charts.js"></script>
+  <script src="js/charts.js?v=100"></script>
   <script src="js/table.js"></script>
   <script src="js/sections.js"></script>
   <script src="js/app.js"></script>
