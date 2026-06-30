@@ -134,7 +134,7 @@ function renderComparativoAnios() {
     )
     .map(anio => ({
       label: String(anio),
-      backgroundColor: anio === 2024 ? "#DADAF2" : "#020296",
+      backgroundColor: anio === 2024 ? "#AFCBFF" : "#0B3D91",
       data: conteoPorEstatus(
         DATOS_FILTRADOS.filter(r => r.ejercicio_fiscal === anio)
       )
