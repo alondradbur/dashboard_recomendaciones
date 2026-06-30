@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Seguimiento de Recomendaciones</title>
+
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <meta name="theme-color" content="#1a4731">
+  <meta name="description" content="Unidad de Evaluación y Control · Comisión de Vigilancia de la ASEBCS">
+
+  <meta property="og:title" content="Sistema de Seguimiento de Recomendaciones">
+  <meta property="og:description" content="Unidad de Evaluación y Control · Comisión de Vigilancia de la ASEBCS">
+  <meta property="og:image" content="https://sistemarecomendaciones.netlify.app/assets/og-image.png">
+  <meta property="og:image:secure_url" content="https://sistemarecomendaciones.netlify.app/assets/og-image.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:url" content="https://sistemarecomendaciones.netlify.app/">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Sistema de Seguimiento de Recomendaciones">
+  <meta name="twitter:description" content="Unidad de Evaluación y Control · Comisión de Vigilancia de la ASEBCS">
+  <meta name="twitter:image" content="https://sistemarecomendaciones.netlify.app/assets/og-image.png">
+
+<link rel="icon" type="image/jpeg" href="https://i.imgur.com/RAlllZj.jpg">
+  <link rel="shortcut icon" type="image/jpeg" href="https://i.imgur.com/RAlllZj.jpg">
+
+  <meta property="og:title" content="Sistema de Seguimiento de Recomendaciones">
+  <meta property="og:description" content="Unidad de Evaluación y Control · Comisión de Vigilancia">
+  <meta property="og:image" content="https://i.imgur.com/RAlllZj.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- =========================================================
+       CSS DEL DASHBOARD
+  ========================================================= -->
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/sidebar.css">
+  <link rel="stylesheet" href="css/header.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/charts.css">
+  <link rel="stylesheet" href="css/tables.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <!-- =========================================================
+       LOGIN
+  ========================================================= -->
+  <div id="loginOverlay" class="login-overlay">
+    <div class="login-card">
+      <img class="login-logo" src="https://i.imgur.com/RAlllZj.jpg" alt="Logo UEC">
+      <p class="login-pretitle">UNIDAD DE EVALUACIÓN Y CONTROL</p>
+      <h1>Sistema de Seguimiento de Recomendaciones</h1>
+      <p class="login-subtitle">CVASEBCS — Acceso Restringido</p>
+      <div class="login-separator"></div>
+      <label for="passwordInput">Contraseña institucional</label>
+      <input id="passwordInput" type="password" autocomplete="current-password">
+      <button id="btnLogin">Ingresar al Dashboard</button>
+      <p id="loginError" class="login-error"></p>
+      <footer>
+        <strong>Contenido institucional confidencial</strong><br>
+        Solo personal autorizado por la Comisión de Vigilancia de la ASEBCS
+      </footer>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       SIDEBAR Y OVERLAYS
+  ========================================================= -->
+  <button id="btnMenuMovil" class="btn-menu-movil">☰</button>
+  <div id="overlaySidebar" class="overlay-sidebar"></div>
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-head">
+      <img src="https://i.imgur.com/RAlllZj.jpg" alt="Logo UEC">
+      <strong>UEC</strong>
+      <span>CVASEBCS</span>
+    </div>
+    <nav class="sidebar-nav">
+      <button class="nav-item activo" data-seccion="sec-ejecutivo">📊 <span>Panel Ejecutivo</span></button>
+      <button class="nav-item" data-seccion="sec-efectividad">✅ <span>Efectividad y Cumplimiento</span></button>
+      <button class="nav-item" data-seccion="sec-riesgos">🚨 <span>Riesgos y Alertas</span></button>
+      <button class="nav-item" data-seccion="sec-continuidad">🔗 <span>Continuidad 2024→2025</span></button>
+      <button class="nav-item" data-seccion="sec-gobierno">🏛️ <span>Gobierno Corporativo</span></button>
+      <button class="nav-item" data-seccion="sec-detalle">📋 <span>Detalle de Recomendaciones</span></button>
+    </nav>
+    <div class="sidebar-foot">v1.0 · 2026</div>
+  </aside>
+
+  <div id="overlayFiltros" class="overlay-filtros"></div>
+
+  <!-- =========================================================
+       ÁREA PRINCIPAL
+  ========================================================= -->
+  <main class="main">
+    <header class="top-header">
+      <img class="header-logo" src="https://i.imgur.com/RAlllZj.jpg" alt="Logo UEC">
+      <div class="header-divider"></div>
+      <div class="header-title">
+        <p>UNIDAD DE EVALUACIÓN Y CONTROL</p>
+        <h1>Sistema de Seguimiento de Recomendaciones</h1>
+        <span>Comisión de Vigilancia de la ASEBCS</span>
+      </div>
+      <div class="header-divider"></div>
+      <div class="header-stats">
+  <div class="stat-card"><strong id="statTotal">0</strong><span>Recomendaciones</span></div>
+  <div class="stat-card"><strong id="statEjercicios">0</strong><span>Ejercicios evaluados</span></div>
+  <button id="btnFiltros" class="btn-filtros">⚙ Filtros <span id="badgeFiltros"></span></button>
+</div>
+    </header>
+
+
+    <div id="spinner" class="spinner-wrap oculto"><div class="spinner"></div></div>
+    <div id="errorCarga" class="error-card oculto">
+      <div class="error-icon">⚠</div>
+      <h3>No se pudo conectar con Google Sheets.</h3>
+      <p>Verifica tu conexión a internet o la publicación del Apps Script.</p>
+      <button onclick="cargarDatos()">Reintentar</button>
+    </div>
+
+    <section class="kpi-grid" id="kpiGrid">
+      <article class="kpi-card primary"><span>TOTAL RECOMENDACIONES</span><strong id="kpiTotal">0</strong><small id="kpiTotalSub">0 en 2024 · 0 en 2025</small></article>
+      <article class="kpi-card good"><span>ATENDIDAS (A)</span><strong id="kpiA">0 · 0%</strong><small>Cerradas satisfactoriamente</small></article>
+      <article class="kpi-card warn"><span>PARCIALMENTE ATENDIDAS (PA)</span><strong id="kpiPA">0 · 0%</strong><small>Con avance incompleto</small></article>
+      <article class="kpi-card bad"><span>NO ATENDIDAS (NA)</span><strong id="kpiNA">0 · 0%</strong><small>Sin ninguna acción tomada</small></article>
+      <article class="kpi-card pending"><span>PENDIENTES (P)</span><strong id="kpiP">0 · 0%</strong><small>Ejercicio en curso 2025</small></article>
+      <article class="kpi-card secondary"><span>ACCIONES ESPECÍFICAS PENDIENTES</span><strong id="kpiAccPend">0</strong><small>Compromisos sin ejecutar</small></article>
+    </section>
+
+    <div id="sinDatos" class="sin-datos oculto">No hay recomendaciones que coincidan con los filtros seleccionados.</div>
+
+    <!-- =========================================================
+         SECCIÓN 1
+    ========================================================= -->
+    <section class="seccion activa" id="sec-ejecutivo">
+      <h2>📊 Panel Ejecutivo</h2>
+      <div class="block sem-grid" id="semaforoEjecutivo"></div>
+      <div class="grid-2">
+        <div class="chart-card"><h3>Distribución Global por Estatus</h3><div class="chart-wrap"><canvas id="ch-estatus-dona"></canvas></div></div>
+        <div class="chart-card"><h3>Comparativo 2024 vs 2025 por Estatus</h3><div class="chart-wrap"><canvas id="ch-comparativo-anios"></canvas></div></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECCIÓN 2
+    ========================================================= -->
+    <section class="seccion" id="sec-efectividad">
+      <h2>✅ Efectividad y Cumplimiento</h2>
+      <div class="chart-card"><h3>Tasa de Atención por Etapa</h3><div class="chart-wrap"><canvas id="ch-atencion-etapa"></canvas></div></div>
+      <div class="chart-card"><h3>Progreso de Acciones por Recomendación</h3><div class="chart-wrap tall"><canvas id="ch-acciones-progreso"></canvas></div></div>
+      <div class="chart-card"><h3>Recomendaciones por Tipo de Recomendación y Estatus</h3><div class="chart-wrap"><canvas id="ch-tipo-estatus"></canvas></div></div>
+    </section>
+
+    <!-- =========================================================
+         SECCIÓN 3
+    ========================================================= -->
+    <section class="seccion" id="sec-riesgos">
+      <h2>🚨 Riesgos y Alertas</h2>
+      <div class="block" id="alertasCriticas"></div>
+      <div class="block"><h3>Nodos de Riesgo Sistémico</h3><p class="muted">Concentración de vínculos por tema crítico.</p><div class="risk-grid" id="nodosRiesgo"></div></div>
+      <div class="block"><h3>Problemas Sistémicos por Ejercicio</h3><div class="table-wrap"><table id="tablaProblemas"></table></div></div>
+    </section>
+
+    <!-- =========================================================
+         SECCIÓN 4
+    ========================================================= -->
+    <section class="seccion" id="sec-continuidad">
+      <h2>🔗 Continuidad 2024→2025</h2>
+      <div class="block intro-continuidad"><h3>Análisis de Continuidad entre Ejercicios</h3><p>De las 9 recomendaciones emitidas en 2025, al menos 8 tienen raíz directa o conexión derivada en recomendaciones no cerradas adecuadamente en 2024.</p><div class="mini-kpis"><b>89%<span>Índice de reincidencia</span></b><b>2<span>Escalamientos a HC</span></b><b>1<span>Falso cierre</span></b></div></div>
+      <div class="block"><h3>Mapa de Vínculos 2024 → 2025</h3><div class="table-wrap"><table id="tablaVinculos"></table></div></div>
+      <div class="grid-2"><div class="block soft-red"><h3>KPI-22: Tasa de Escalamiento PA/NA → HC</h3><p>2 de 4 recomendaciones PA/NA en 2024 generaron un Hallazgo Crítico en 2025.</p><div class="chart-wrap small"><canvas id="ch-escalamiento"></canvas></div></div><div class="block soft-warn"><h3>KPI-23: Falsos Cierres Detectados</h3><div class="big-number">1 caso</div><code>E1-02-24 → HC-03-25</code><p>Sugiere revisar el criterio de validación de evidencias.</p></div></div>
+      <div class="block"><h3>Flujo de Escalamientos Documentados</h3><div class="flow-grid" id="flujosEscalamiento"></div></div>
+    </section>
+
+    <!-- =========================================================
+         SECCIÓN 5
+    ========================================================= -->
+    <section class="seccion" id="sec-gobierno">
+      <h2>🏛️ Gobierno Corporativo</h2>
+      <div class="block"><h3>Estado de Componentes de Gobierno Corporativo</h3><p class="muted">Basado en recomendaciones activas y análisis de seguimiento.</p><div class="gov-grid" id="checkGobierno"></div></div>
+      <div class="block soft-red"><h3>Recomendaciones de ALTA Prioridad 2025 — Detalle Ejecutivo</h3><p>Las siguientes recomendaciones requieren atención inmediata.</p><div class="table-wrap"><table id="tablaAltaPrioridad"></table></div></div>
+    </section>
+
+    <!-- =========================================================
+         SECCIÓN 6
+    ========================================================= -->
+    <section class="seccion" id="sec-detalle">
+      <h2>📋 Detalle de Recomendaciones</h2>
+      <div class="detalle-toolbar">
+        <input id="buscadorDetalle" type="search" placeholder="🔍 Buscar en cualquier campo...">
+        <span id="contadorDetalle">Mostrando 0 de 0 recomendaciones</span>
+      </div>
+      <div class="table-wrap table-scroll"><table id="tablaDetalle"></table></div>
+    </section>
+
+    <footer class="footer-main">
+      <img src="https://i.imgur.com/RAlllZj.jpg" alt="Logo UEC">
+      <div>
+        <strong>Unidad de Evaluación y Control</strong>
+        <p>Comisión de Vigilancia de la Auditoría Superior del Estado de Baja California Sur</p>
+        <small id="footerMeta">Sistema de Seguimiento de Recomendaciones · Hoja: SEGUIMIENTO · Datos cargados desde Google Sheets</small>
+      </div>
+    </footer>
+  </main>
+
+  <!-- =========================================================
+       DRAWER DE FILTROS
+  ========================================================= -->
+  <aside id="drawerFiltros" class="drawer-filtros">
+    <div class="drawer-head"><h3>Filtros de búsqueda</h3><button id="cerrarFiltros">✕</button></div>
+    <label>Ejercicio Fiscal<select id="filtroEjercicio"><option value="">Todos los ejercicios</option></select></label>
+    <label>Etapa<select id="filtroEtapa"><option value="">Todas las etapas</option><option>E1</option><option>E2</option><option>E3</option><option>E4</option><option>HC</option></select></label>
+    <label>Estatus de Recomendación<select id="filtroEstatus"><option value="">Todos</option><option value="A">A — Atendida</option><option value="PA">PA — Parcialmente Atendida</option><option value="NA">NA — No Atendida</option><option value="P">P — Pendiente</option></select></label>
+    <label>Prioridad<select id="filtroPrioridad"><option value="">Todas</option><option>ALTA</option><option>MEDIA</option><option>BAJA</option><option>N/A</option></select></label>
+    <label>Buscar por ID o texto<input id="filtroTexto" type="search" placeholder="Buscar en ID2, tipo, análisis..."></label>
+    <button id="limpiarFiltros" class="btn-limpiar">🗑 Limpiar todos los filtros</button>
+  </aside>
+
+  <!-- =========================================================
+       LIBRERÍAS Y JS DEL DASHBOARD
+  ========================================================= -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.2.0/chartjs-plugin-datalabels.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/filters.js"></script>
+  <script src="js/kpis.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/table.js"></script>
+  <script src="js/sections.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
